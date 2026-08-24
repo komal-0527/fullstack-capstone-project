@@ -4,34 +4,33 @@ async function searchGifts(req, res) {
   try {
     const db = await connectToDatabase();
 
-    const {
-      category,
-      q
-    } = req.query;
+    const { category, q } = req.query;
 
     const filter = {};
 
+    // Filter gifts by category
     if (category) {
       filter.category = {
         $regex: category,
-        $options: "i"
+        $options: "i",
       };
     }
 
+    // Search by title or description
     if (q) {
       filter.$or = [
         {
           title: {
             $regex: q,
-            $options: "i"
-          }
+            $options: "i",
+          },
         },
         {
           description: {
             $regex: q,
-            $options: "i"
-          }
-        }
+            $options: "i",
+          },
+        },
       ];
     }
 
@@ -40,15 +39,18 @@ async function searchGifts(req, res) {
       .find(filter)
       .toArray();
 
-    res.json(gifts);
+    res.status(200).json(gifts);
   } catch (error) {
+    console.error("Search error:", error);
+
     res.status(500).json({
+      success: false,
       message: "Search failed",
-      error: error.message
+      error: error.message,
     });
   }
 }
 
 module.exports = {
-  searchGifts
+  searchGifts,
 };

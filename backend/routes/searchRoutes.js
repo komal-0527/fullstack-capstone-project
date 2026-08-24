@@ -4,13 +4,18 @@ const router = express.Router();
 const { connectToDatabase } = require("../config/db");
 const { searchGifts } = require("../controllers/searchController");
 
-router.get("/", async (req, res, next) => {
-  try {
-    await connectToDatabase();
-    next();
-  } catch (error) {
-    next(error);
-  }
-}, searchGifts);
+// Search gifts and filter by category
+router.get(
+  "/",
+  async (req, res, next) => {
+    try {
+      await connectToDatabase();
+      next();
+    } catch (error) {
+      next(error);
+    }
+  },
+  searchGifts
+);
 
 module.exports = router;

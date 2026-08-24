@@ -1,11 +1,27 @@
 const express = require("express");
+const { connectToDatabase } = require("../config/db");
+const { getAllGifts, getGiftById } = require("../controllers/giftController");
 
 const router = express.Router();
 
-const { getAllGifts, getGiftById } = require("../controllers/giftController");
+// Get all gifts
+router.get("/", async (req, res, next) => {
+  try {
+    await connectToDatabase();
+    return getAllGifts(req, res, next);
+  } catch (error) {
+    next(error);
+  }
+});
 
-router.get("/", getAllGifts);
-
-router.get("/:id", getGiftById);
+// Get a single gift by ID
+router.get("/:id", async (req, res, next) => {
+  try {
+    await connectToDatabase();
+    return getGiftById(req, res, next);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
