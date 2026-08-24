@@ -1,30 +1,30 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { ObjectId } = require("mongodb");
 const { connectToDatabase } = require("../config/db");
 
+// Register a new user
 async function register(req, res) {
   try {
     const db = await connectToDatabase();
 
-    const {
-      name,
-      email,
-      password
-    } = req.body;
+    const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({
-        message: "Name, email and password are required"
+        success: false,
+        message: "Name, email and password are required",
       });
     }
 
     const existingUser = await db.collection("users").findOne({
-      email
+      email: email.toLowerCase(),
     });
 
     if (existingUser) {
       return res.status(409).json({
-        message: "User already exists"
+        success: false,
+        message: "User already exists",
       });
     }
 
@@ -32,40 +32,50 @@ async function register(req, res) {
 
     const result = await db.collection("users").insertOne({
       name,
-      email,
+      email: email.toLowerCase(),
       password: hashedPassword,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
 
-    res.status(201).json({
+    return res.status(201).json({
+      success: true,
       message: "User registered successfully",
-      userId: result.insertedId
+      userId: result.insertedId,
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("Registration error:", error);
+
+    return res.status(500).json({
+      success: false,
       message: "Registration failed",
-      error: error.message
+      error: error.message,
     });
   }
 }
 
+// Login user
 async function login(req, res) {
   try {
     const db = await connectToDatabase();
 
-    const {
-      email,
-      password
-    } = req.body;
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required",
+      });
+    }
 
     const user = await db.collection("users").findOne({
-      email
+      email: email.toLowerCase(),
     });
 
     if (!user) {
       return res.status(401).json({
-        message: "Invalid email or password"
+        success: false,
+        message: "Invalid email or password",
       });
     }
 
@@ -76,46 +86,59 @@ async function login(req, res) {
 
     if (!passwordMatch) {
       return res.status(401).json({
-        message: "Invalid email or password"
+        success: false,
+        message: "Invalid email or password",
       });
     }
 
     const token = jwt.sign(
       {
         id: user._id.toString(),
-        email: user.email
+        email: user.email,
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h"
+        expiresIn: "1h",
       }
     );
 
-    res.json({
+    return res.status(200).json({
+      success: true,
       message: "Login successful",
       token,
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
-      }
+        email: user.email,
+      },
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("Login error:", error);
+
+    return res.status(500).json({
+      success: false,
       message: "Login failed",
-      error: error.message
+      error: error.message,
     });
   }
 }
 
+// Update logged-in user's information
 async function updateUser(req, res) {
   try {
     const db = await connectToDatabase();
 
     const userId = req.user.id;
 
+    if (!ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid user ID",
+      });
+    }
+
     const updates = {
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
 
     if (req.body.name) {
@@ -123,28 +146,37 @@ async function updateUser(req, res) {
     }
 
     if (req.body.email) {
-      updates.email = req.body.email;
+      updates.email = req.body.email.toLowerCase();
     }
 
-    const { ObjectId } = require("mongodb");
+    if (!updates.name && !updates.email) {
+      return res.status(400).json({
+        success: false,
+        message: "No information provided to update",
+      });
+    }
 
     const result = await db.collection("users").updateOne(
       {
-        _id: new ObjectId(userId)
+        _id: new ObjectId(userId),
       },
       {
-        $set: updates
+        $set: updates,
       }
     );
 
-    res.json({
+    return res.status(200).json({
+      success: true,
       message: "User information updated",
-      modifiedCount: result.modifiedCount
+      modifiedCount: result.modifiedCount,
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("Update user error:", error);
+
+    return res.status(500).json({
+      success: false,
       message: "Update failed",
-      error: error.message
+      error: error.message,
     });
   }
 }
@@ -152,5 +184,5 @@ async function updateUser(req, res) {
 module.exports = {
   register,
   login,
-  updateUser
+  updateUser,
 };
