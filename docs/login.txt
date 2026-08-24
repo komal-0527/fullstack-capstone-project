@@ -1,0 +1,16 @@
+TASK 15 - LOGIN
+
+cURL command:
+
+$loginBody = @{
+    email = "komal.test3@example.com"
+    password = "Password123"
+} | ConvertTo-Json -Compress
+
+$loginBody | Set-Content -Path "$env:TEMP\login.json" -Encoding utf8
+
+curl.exe -X POST "http://localhost:5000/api/auth/login" -H "Content-Type: application/json" --data-binary "@$env:TEMP\login.json"
+
+Output:
+
+{"success":true,"message":"Login successful","token":"PASTE_YOUR_TOKEN_HERE","user":{"id":"6a8c2ebb51bd0291f4e90ecc","name":"Komal Test 3","email":"komal.test3@example.com"}}
