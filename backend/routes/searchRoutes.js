@@ -1,10 +1,11 @@
 const express = require("express");
+
 const router = express.Router();
 
 const { connectToDatabase } = require("../config/db");
 const { searchGifts } = require("../controllers/searchController");
 
-// Search gifts and filter by category
+// Search gifts and filter results by category
 router.get(
   "/",
   async (req, res, next) => {

@@ -4,21 +4,18 @@ async function searchGifts(req, res) {
   try {
     const db = await connectToDatabase();
 
-    const { category, q } = req.query;
+    const { q, category } = req.query;
 
-    const filter = {};
+    const query = {};
 
-    // Filter gifts by category
+    // Filter by category
     if (category) {
-      filter.category = {
-        $regex: category,
-        $options: "i",
-      };
+      query.category = category;
     }
 
     // Search by title or description
     if (q) {
-      filter.$or = [
+      query.$or = [
         {
           title: {
             $regex: q,
@@ -36,7 +33,7 @@ async function searchGifts(req, res) {
 
     const gifts = await db
       .collection("gifts")
-      .find(filter)
+      .find(query)
       .toArray();
 
     res.status(200).json(gifts);
