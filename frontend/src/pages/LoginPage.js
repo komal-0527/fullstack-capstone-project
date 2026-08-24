@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  FaGift,
-  FaSignInAlt,
-  FaEnvelope,
-  FaLock,
-} from "react-icons/fa";
+import { FaGift, FaSignInAlt, FaEnvelope, FaLock } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 function LoginPage() {
@@ -31,16 +26,14 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+        },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
 
@@ -121,23 +114,18 @@ function LoginPage() {
             />
           </div>
 
-          <button
-            type="submit"
-            className="auth-submit-btn"
-            disabled={loading}
-          >
+          <button type="submit" className="auth-submit-btn" disabled={loading}>
             <FaSignInAlt />
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
         <p className="auth-footer">
-          Don't have an account?{" "}
-          <Link to="/register">Create an account</Link>
+          Don't have an account? <Link to="/register">Create an account</Link>
         </p>
 
         <Link to="/" className="back-home">
-          ← Back to GiftLink
+          ← Back to Home
         </Link>
       </div>
     </div>

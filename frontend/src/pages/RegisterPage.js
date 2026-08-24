@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaGift, FaUserPlus, FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import {
+  FaGift,
+  FaUserPlus,
+  FaUser,
+  FaEnvelope,
+  FaLock,
+} from "react-icons/fa";
 import { toast } from "react-toastify";
 
 function RegisterPage() {
@@ -150,7 +156,7 @@ function RegisterPage() {
         </p>
 
         <Link to="/" className="back-home">
-          ← Back to GiftLink
+          ← Back to Home
         </Link>
       </div>
     </div>
