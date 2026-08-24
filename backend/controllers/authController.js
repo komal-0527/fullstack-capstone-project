@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
+
 const { connectToDatabase } = require("../config/db");
 
 // Register a new user
@@ -17,8 +18,11 @@ async function register(req, res) {
       });
     }
 
+    const normalizedEmail = email.toLowerCase().trim();
+
+    // Check whether the user already exists
     const existingUser = await db.collection("users").findOne({
-      email: email.toLowerCase(),
+      email: normalizedEmail,
     });
 
     if (existingUser) {
@@ -31,8 +35,8 @@ async function register(req, res) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const result = await db.collection("users").insertOne({
-      name,
-      email: email.toLowerCase(),
+      name: name.trim(),
+      email: normalizedEmail,
       password: hashedPassword,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -68,8 +72,11 @@ async function login(req, res) {
       });
     }
 
+    const normalizedEmail = email.toLowerCase().trim();
+
+    // Find user by email
     const user = await db.collection("users").findOne({
-      email: email.toLowerCase(),
+      email: normalizedEmail,
     });
 
     if (!user) {
@@ -79,10 +86,7 @@ async function login(req, res) {
       });
     }
 
-    const passwordMatch = await bcrypt.compare(
-      password,
-      user.password
-    );
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
       return res.status(401).json({
@@ -99,7 +103,7 @@ async function login(req, res) {
       process.env.JWT_SECRET,
       {
         expiresIn: "1h",
-      }
+      },
     );
 
     return res.status(200).json({
@@ -142,11 +146,11 @@ async function updateUser(req, res) {
     };
 
     if (req.body.name) {
-      updates.name = req.body.name;
+      updates.name = req.body.name.trim();
     }
 
     if (req.body.email) {
-      updates.email = req.body.email.toLowerCase();
+      updates.email = req.body.email.toLowerCase().trim();
     }
 
     if (!updates.name && !updates.email) {
@@ -162,8 +166,15 @@ async function updateUser(req, res) {
       },
       {
         $set: updates,
-      }
+      },
     );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
     return res.status(200).json({
       success: true,
