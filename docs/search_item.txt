@@ -1,0 +1,9 @@
+TASK 17 - SEARCH ITEM
+
+cURL command:
+
+curl.exe "http://localhost:5000/api/search?q=Table"
+
+Output:
+
+[{"_id":"6a8c1e8f9fe3dbb6f2b97c7a","title":"Wooden Study Table","description":"Good condition wooden study table.","category":"Furniture","location":"Lahore","condition":"Good","image":"https://images.unsplash.com/photo-1497366754035-f200968a6e72"},{"_id":"6a8c1e8f9fe3dbb6f2b97c7d","title":"Office Chair","description":"Comfortable office chair available for reuse.","category":"Furniture","location":"Islamabad","condition":"Good","image":"https://images.unsplash.com/photo-1505843490701-5be8b0f2c4b7"},{"_id":"6a8c1e8f9fe3dbb6f2b97c7f","title":"School Backpack","description":"Used school backpack suitable for a student.","category":"Education","location":"Lahore","condition":"Good","image":"https://images.unsplash.com/photo-1553062407-98eeb64c6a62"},{"_id":"6a8c1e8f9fe3dbb6f2b97c80","title":"Coffee Table","description":"Small wooden coffee table.","category":"Furniture","location":"Karachi","condition":"Good","image":"https://images.unsplash.com/photo-1532372320572-cda25653a26d"},{"_id":"6a8c1e8f9fe3dbb6f2b97c83","title":"Table Lamp","description":"Working table lamp suitable for a study room.","category":"Home","location":"Rawalpindi","condition":"Good","image":"https://images.unsplash.com/photo-1507473885765-e6ed057f782c"},{"_id":"6a8c1e8f9fe3dbb6f2b97c85","title":"School Notebooks","description":"Unused notebooks suitable for school students.","category":"Education","location":"Lahore","condition":"Excellent","image":"https://images.unsplash.com/photo-1531346680769-a1d79b57de5b"},{"_id":"6a8c1e8f9fe3dbb6f2b97c88","title":"Floor Mat","description":"Clean floor mat suitable for home use.","category":"Home","location":"Karachi","condition":"Good","image":"https://images.unsplash.com/photo-1600166898405-da9535204843"}]
