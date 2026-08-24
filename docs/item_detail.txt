@@ -1,0 +1,9 @@
+TASK 16 - ITEM DETAIL
+
+cURL command:
+
+curl.exe "http://localhost:5000/api/gifts/6a8c1e8f9fe3dbb6f2b97c7a"
+
+Output:
+
+{"success":true,"gift":{"_id":"6a8c1e8f9fe3dbb6f2b97c7a","title":"Wooden Study Table","description":"Good condition wooden study table.","category":"Furniture","location":"Lahore","condition":"Good","image":"https://images.unsplash.com/photo-1497366754035-f200968a6e72"}}
