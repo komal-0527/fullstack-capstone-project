@@ -1,122 +1,167 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+  FaGift,
+  FaSearch,
+  FaUserPlus,
+  FaSignInAlt,
+  FaArrowRight,
+  FaRecycle,
+  FaHeart,
+} from "react-icons/fa";
 
-function App() {
-  const [count, setCount] = useState(0)
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
 
+import "./App.css";
+
+function HomePage() {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app">
+      {/* Navbar */}
+      <nav className="navbar">
+        <Link to="/" className="logo">
+          <FaGift />
+          <span>GiftLink</span>
+        </Link>
 
-      <div className="ticks"></div>
+        <div className="nav-links">
+          <Link to="/login">
+            <FaSignInAlt />
+            Login
+          </Link>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+          <Link to="/register" className="register-btn">
+            <FaUserPlus />
+            Register
+          </Link>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      </nav>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      {/* Hero */}
+      <main>
+        <section className="hero-section">
+          <div className="hero-content">
+            <div className="hero-icon">
+              <FaGift />
+            </div>
+
+            <h1>
+              Give More.
+              <br />
+              <span>Waste Less.</span>
+            </h1>
+
+            <p>
+              GiftLink connects people who have household items they no longer
+              need with people who can reuse them.
+            </p>
+
+            <div className="hero-buttons">
+              <Link to="/register" className="primary-btn">
+                Get Started
+                <FaArrowRight />
+              </Link>
+
+              <Link to="/login" className="secondary-btn">
+                <FaSignInAlt />
+                Login
+              </Link>
+            </div>
+          </div>
+
+          <div className="hero-card">
+            <div className="floating-card card-one">
+              <FaGift />
+              <div>
+                <strong>Give Away</strong>
+                <small>Share unused items</small>
+              </div>
+            </div>
+
+            <div className="gift-circle">
+              <FaGift />
+            </div>
+
+            <div className="floating-card card-two">
+              <FaHeart />
+              <div>
+                <strong>Find Free Items</strong>
+                <small>Reuse & recycle</small>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features */}
+        <section className="features">
+          <div className="feature-card">
+            <div className="feature-icon">
+              <FaGift />
+            </div>
+            <h3>Share Items</h3>
+            <p>
+              List household items you no longer need and give them a second
+              life.
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon">
+              <FaSearch />
+            </div>
+            <h3>Find What You Need</h3>
+            <p>
+              Search and filter available items to find something useful for
+              you.
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon">
+              <FaRecycle />
+            </div>
+            <h3>Reduce Waste</h3>
+            <p>
+              Help your community reuse items instead of throwing them away.
+            </p>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="cta-section">
+          <h2>Ready to make a difference?</h2>
+          <p>Join GiftLink and start sharing today.</p>
+
+          <Link to="/register" className="primary-btn">
+            Get Started
+            <FaArrowRight />
+          </Link>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer>
+        <div className="logo">
+          <FaGift />
+          <span>GiftLink</span>
+        </div>
+
+        <p>Give what you don't need. Find what you do.</p>
+      </footer>
+    </div>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
