@@ -1,0 +1,17 @@
+TASK 14 - REGISTER
+
+cURL command:
+
+$body = @{
+    name = "Komal Test 3"
+    email = "komal.test3@example.com"
+    password = "Password123"
+} | ConvertTo-Json -Compress
+
+$body | Set-Content -Path "$env:TEMP\register.json" -Encoding utf8
+
+curl.exe -X POST "http://localhost:5000/api/auth/register" -H "Content-Type: application/json" --data-binary "@$env:TEMP\register.json"
+
+Output:
+
+{"success":true,"message":"User registered successfully","userId":"6a8c2ebb51bd0291f4e90ecc"}
