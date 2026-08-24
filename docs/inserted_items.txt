@@ -1,0 +1,31 @@
+TASK 3 - INSERTED ITEMS
+
+MongoDB import command:
+
+node .\scripts\importData.js
+
+MongoDB import output:
+
+MongoDB connected successfully
+
+inserted_items
+{
+  '0': new ObjectId('6a8c1e8f9fe3dbb6f2b97c7a'),
+  '1': new ObjectId('6a8c1e8f9fe3dbb6f2b97c7b'),
+  '2': new ObjectId('6a8c1e8f9fe3dbb6f2b97c7c'),
+  '3': new ObjectId('6a8c1e8f9fe3dbb6f2b97c7d'),
+  '4': new ObjectId('6a8c1e8f9fe3dbb6f2b97c7e'),
+  '5': new ObjectId('6a8c1e8f9fe3dbb6f2b97c7f'),
+  '6': new ObjectId('6a8c1e8f9fe3dbb6f2b97c80'),
+  '7': new ObjectId('6a8c1e8f9fe3dbb6f2b97c81'),
+  '8': new ObjectId('6a8c1e8f9fe3dbb6f2b97c82'),
+  '9': new ObjectId('6a8c1e8f9fe3dbb6f2b97c83'),
+  '10': new ObjectId('6a8c1e8f9fe3dbb6f2b97c84'),
+  '11': new ObjectId('6a8c1e8f9fe3dbb6f2b97c85'),
+  '12': new ObjectId('6a8c1e8f9fe3dbb6f2b97c86'),
+  '13': new ObjectId('6a8c1e8f9fe3dbb6f2b97c87'),
+  '14': new ObjectId('6a8c1e8f9fe3dbb6f2b97c88'),
+  '15': new ObjectId('6a8c1e8f9fe3dbb6f2b97c89')
+}
+
+Total documents inserted: 16
