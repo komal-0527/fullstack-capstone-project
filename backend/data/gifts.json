@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Wooden Study Table",
+    "description": "Good condition wooden study table.",
+    "category": "Furniture",
+    "location": "Lahore",
+    "condition": "Good",
+    "image": "https://images.unsplash.com/photo-1497366754035-f200968a6e72"
+  },
+  {
+    "title": "Children Books",
+    "description": "Collection of children's books.",
+    "category": "Books",
+    "location": "Lahore",
+    "condition": "Good",
+    "image": "https://images.unsplash.com/photo-1495446815901-a7297e633e8d"
+  },
+  {
+    "title": "Kitchen Plates",
+    "description": "Unused kitchen plates.",
+    "category": "Kitchen",
+    "location": "Islamabad",
+    "condition": "Excellent",
+    "image": "https://images.unsplash.com/photo-1603199506016-b9a594b593c0"
+  }
+]
